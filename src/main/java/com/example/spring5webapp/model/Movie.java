@@ -9,9 +9,13 @@ import java.util.Set;
  * @author Kevin Neag
  */
 
+/**
+ * Movie Pojo annotated with entity for use by Java persistence API
+ */
 @Entity
 public class Movie {
 
+    //Auto generated Unique Identifier
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

@@ -8,15 +8,20 @@ import java.util.Set;
  * @author Kevin Neag
  */
 
+/**
+ * Actor pojo annotated with entity for use by java peristence API
+ */
 @Entity
 public class Actor {
 
+    // Auto generated unique Identifier
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String firstName;
     private String lastName;
 
+    //many movies to actors
     @ManyToMany(mappedBy = "actors")
     private Set<Movie> movies = new HashSet<>();
 
