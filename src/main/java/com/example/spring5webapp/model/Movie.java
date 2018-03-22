@@ -24,13 +24,22 @@ public class Movie {
     private String studio;
 
     @ManyToMany
-    @JoinTable(name = "actor_movie", joinColumns = @JoinColumn(name = "movie_id"), inverseJoinColumns = @JoinColumn(name = "actor_id"))
+    //creates a single relational table to define the many to many relationship between actor and movie
+    @JoinTable(name ="actor_movie", joinColumns = @JoinColumn(name = "movie_id"), inverseJoinColumns = @JoinColumn(name = "actor_id"))
     private Set<Actor> actorSet = new HashSet<>();
 
-
+    /**
+     * Empty constructor
+     */
     public Movie() {
     }
 
+    /**
+     * Full constructor
+     * @param title
+     * @param budget
+     * @param studio
+     */
     public Movie(String title, BigDecimal budget, String studio) {
         this.title = title;
         this.budget = budget;
