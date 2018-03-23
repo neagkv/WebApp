@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Web App</title>
+</head>
+<body>
+<h1>Movie List</h1>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Studio</th>
+    </tr>
+    <tr th:each="movie : ${movies}">
+        <td th:text="${movie.id}">123</td>
+        <td th:text="${movie.title}">Movie Title</td>
+        <td th:text="${movie.studio.name}">Studio Name</td>
+    </tr>
+</table>
+
+</body>
+</html>
