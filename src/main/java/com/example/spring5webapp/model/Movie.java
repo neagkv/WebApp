@@ -21,7 +21,8 @@ public class Movie {
     private Long id;
     private String title;
     private int budget;
-    private String studio;
+    @OneToOne
+    private Studio studio;
 
     //creates a single relational table to define the many to many relationship between actor and movie
     @ManyToMany
@@ -40,7 +41,7 @@ public class Movie {
      * @param budget
      * @param studio
      */
-    public Movie(String title, int budget, String studio) {
+    public Movie(String title, int budget, Studio studio) {
         this.title = title;
         this.budget = budget;
         this.studio = studio;
@@ -71,11 +72,11 @@ public class Movie {
         this.budget = budget;
     }
 
-    public String getStudio() {
+    public Studio getStudio() {
         return studio;
     }
 
-    public void setStudio(String studio) {
+    public void setStudio(Studio studio) {
         this.studio = studio;
     }
 

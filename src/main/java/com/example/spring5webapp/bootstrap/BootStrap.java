@@ -6,8 +6,10 @@ package com.example.spring5webapp.bootstrap;
 
 import com.example.spring5webapp.model.Actor;
 import com.example.spring5webapp.model.Movie;
+import com.example.spring5webapp.model.Studio;
 import com.example.spring5webapp.repository.ActorRepo;
 import com.example.spring5webapp.repository.MovieRepo;
+import com.example.spring5webapp.repository.StudioRepo;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
@@ -20,15 +22,18 @@ public class BootStrap implements ApplicationListener<ContextRefreshedEvent>{
 
     private MovieRepo movieRepo;
     private ActorRepo actorRepo;
+    private StudioRepo studioRepo;
 
     /**
-     * Constructor with both repos injected
+     * Constructor to autowire repos
      * @param movieRepo
      * @param actorRepo
+     * @param studioRepo
      */
-    public BootStrap(MovieRepo movieRepo, ActorRepo actorRepo) {
+    public BootStrap(MovieRepo movieRepo, ActorRepo actorRepo, StudioRepo studioRepo) {
         this.movieRepo = movieRepo;
         this.actorRepo = actorRepo;
+        this.studioRepo = studioRepo;
     }
 
     @Override
@@ -42,9 +47,19 @@ public class BootStrap implements ApplicationListener<ContextRefreshedEvent>{
      */
     private void initData(){
 
+        Studio castleRock = new Studio();
+        castleRock.setName("Castle Rock");
+        castleRock.setCity("LA");
+        studioRepo.save(castleRock);
+
+        Studio warner = new Studio();
+        warner.setName("Warner Bros");
+        warner.setCity("LA");
+        studioRepo.save(warner);
+
         Actor freeman = new Actor("Morgan","Freeman");
-        Movie ssr = new Movie("Shawshank Redemption",25000000,"Castle Rock");
-        Movie ddk = new Movie("Dark Kinght",185000000,"Warner Bros");
+        Movie ssr = new Movie("Shawshank Redemption",25000000,castleRock);
+        Movie ddk = new Movie("Dark Kinght",185000000,warner);
         freeman.getMovies().add(ssr);
         freeman.getMovies().add(ddk);
         actorRepo.save(freeman);
@@ -52,7 +67,7 @@ public class BootStrap implements ApplicationListener<ContextRefreshedEvent>{
         movieRepo.save(ddk);
 
         Actor robbins = new Actor("Tim", "Robbins");
-        Movie myr = new Movie("Mystic River",25000000,"Warner Bros");
+        Movie myr = new Movie("Mystic River",25000000,warner);
         robbins.getMovies().add(ssr);
         robbins.getMovies().add(myr);
         actorRepo.save(robbins);
