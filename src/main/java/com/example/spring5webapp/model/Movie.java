@@ -20,13 +20,13 @@ public class Movie {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String title;
-    private BigDecimal budget;
+    private int budget;
     private String studio;
 
-    @ManyToMany
     //creates a single relational table to define the many to many relationship between actor and movie
+    @ManyToMany
     @JoinTable(name ="actor_movie", joinColumns = @JoinColumn(name = "movie_id"), inverseJoinColumns = @JoinColumn(name = "actor_id"))
-    private Set<Actor> actorSet = new HashSet<>();
+    private Set<Actor> actors = new HashSet<>();
 
     /**
      * Empty constructor
@@ -40,12 +40,13 @@ public class Movie {
      * @param budget
      * @param studio
      */
-    public Movie(String title, BigDecimal budget, String studio) {
+    public Movie(String title, int budget, String studio) {
         this.title = title;
         this.budget = budget;
         this.studio = studio;
     }
 
+    //getters and setters
     public Long getId() {
         return id;
     }
@@ -62,11 +63,11 @@ public class Movie {
         this.title = title;
     }
 
-    public BigDecimal getBudget() {
+    public int getBudget() {
         return budget;
     }
 
-    public void setBudget(BigDecimal budget) {
+    public void setBudget(int budget) {
         this.budget = budget;
     }
 
@@ -78,29 +79,40 @@ public class Movie {
         this.studio = studio;
     }
 
-    public Set<Actor> getActorSet() {
-        return actorSet;
+    public Set<Actor> getActors() {
+        return actors;
     }
 
-    public void setActorSet(Set<Actor> actorSet) {
-        this.actorSet = actorSet;
+    public void setActors(Set<Actor> actors) {
+        this.actors = actors;
     }
 
+    /**
+     * Equals and hasCode method for generating a unique Id for working with the movie set
+     * @param o
+     * @return
+     */
     @Override
-    public boolean equals(Object object) {
-        if (this == object) return true;
-        if (object == null || getClass() != object.getClass()) return false;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
-        Movie movie = (Movie) object;
+        Movie movie = (Movie) o;
 
         return id != null ? id.equals(movie.id) : movie.id == null;
     }
+
+
 
     @Override
     public int hashCode() {
         return id != null ? id.hashCode() : 0;
     }
 
+    /**
+     * To String Method
+     * @return
+     */
     @Override
     public String toString() {
         return "Movie{" +
@@ -108,7 +120,7 @@ public class Movie {
                 ", title='" + title + '\'' +
                 ", budget=" + budget +
                 ", studio='" + studio + '\'' +
-                ", actorSet=" + actorSet +
+                ", actors=" + actors +
                 '}';
     }
 }

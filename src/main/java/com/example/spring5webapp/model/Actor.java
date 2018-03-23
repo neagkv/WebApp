@@ -25,21 +25,49 @@ public class Actor {
     @ManyToMany(mappedBy = "actors")
     private Set<Movie> movies = new HashSet<>();
 
+    /**
+     * Empty Constructor
+     */
     public Actor() {
     }
 
+    /**
+     * Constructor with everything except movies set
+     * @param id
+     * @param firstName
+     * @param lastName
+     */
     public Actor(Long id, String firstName, String lastName) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
+    /**
+     * Constructor first and last name
+     * @param firstName
+     * @param lastName
+     */
+    public Actor(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    /**
+     * Fully Qualified Constructor
+     * @param id
+     * @param firstName
+     * @param lastName
+     * @param movies
+     */
     public Actor(Long id, String firstName, String lastName, Set<Movie> movies) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.movies = movies;
     }
+
+    //Getters and setters
 
     public Long getId() {
         return id;
@@ -73,12 +101,17 @@ public class Actor {
         this.movies = movies;
     }
 
+    /**
+     * Equals method that creates a unique Id for working with the set
+     * @param o
+     * @return
+     */
     @Override
-    public boolean equals(Object object) {
-        if (this == object) return true;
-        if(object == null || getClass() != object.getClass()) return false;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
-        Actor actor = (Actor) object;
+        Actor actor = (Actor) o;
 
         return id != null ? id.equals(actor.id) : actor.id == null;
     }
@@ -88,6 +121,10 @@ public class Actor {
         return id != null ? id.hashCode() : 0;
     }
 
+    /**
+     * To String Method
+     * @return
+     */
     @Override
     public String toString() {
         return "Actor{" +
